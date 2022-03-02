@@ -24,6 +24,8 @@ class CustomerService {
   }
 
   addCustomer(customer) {
+    console.log("addCust");
+    console.log(JSON.stringify(customer));
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 

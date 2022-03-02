@@ -4,6 +4,7 @@ import styles from "./app.module.css";
 import CustSearch from "./components/cust_search/cust_search";
 import styled from "styled-components";
 import CustInfo from "./components/cust_info/cust_info";
+import CustDetail from "./components/cust_detail/cust_detail";
 
 class App extends Component {
   state = {
@@ -17,6 +18,7 @@ class App extends Component {
       tel: "",
     },
     customers: [],
+    selectedCustomer: null,
   };
 
   addBtn = styled.button`
@@ -25,7 +27,7 @@ class App extends Component {
   `;
 
   handleAddCust = () => {
-    console.log("add");
+    console.log("aㅎㅎggggㅎdd");
   };
 
   componentDidMount = () => {
@@ -34,19 +36,37 @@ class App extends Component {
       .then((customers) => this.setState({ customers }));
   };
 
-  handleSubmit = (customer) => {
-    this.props.customerService.addCustomer(customer);
+  handleSubmit = () => {
+    this.props.customerService.addCustomer(this.state.customer);
+  };
+
+  onChange = (e) => {
+    this.setState({
+      customer: {
+        ...this.state.customer,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+
+  clickItem = (customer) => {
+    this.setState({ selectedCustomer: customer });
   };
 
   render() {
+    const { selectedCustomer } = this.state;
     return (
       <div className={styles.app}>
         <aside className={styles.left}>
           <this.addBtn onClick={this.handleAddCust}>거래처 등록</this.addBtn>
           <CustSearch />
-          <CustList customers={this.customers} />
+          <CustList
+            customers={this.state.customers}
+            clickItem={this.clickItem}
+          />
         </aside>
         <main className={styles.main}>
+          {selectedCustomer && <CustDetail customer={selectedCustomer} />}
           <CustInfo
             onSubmit={this.handleSubmit}
             customer={this.state.customer}

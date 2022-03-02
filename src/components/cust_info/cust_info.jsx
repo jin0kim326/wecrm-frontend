@@ -2,21 +2,13 @@ import React, { Component } from "react";
 import styled, { StyledComponent } from "styled-components";
 
 class CustInfo extends Component {
-  handleSubmit = () => {
-    // let customerInfo = {
-    //   customerName: customerName,
-    //   customerDivision: customer.customerDivision,
-    //   companyNumber: customer.companyNumber,
-    //   representativeName: customer.representativeName,
-    //   representativeNumber: customer.representativeNumber,
-    //   representativeAddress: customer.representativeAddress,
-    //   tel: customer.tel,
-    // };
+  handleSubmit = (e) => {
+    e.preventDefault();
     this.props.onSubmit();
   };
 
-  onChange = () => {
-    this.props.onChange();
+  onChange = (e) => {
+    this.props.onChange(e);
   };
 
   Form = styled.form`
@@ -40,7 +32,7 @@ class CustInfo extends Component {
       <this.Form onSubmit={this.handleSubmit}>
         <this.InputArea>
           <label>거래처 이름</label>
-          <this.Input name="customerName" />
+          <this.Input name="customerName" value={customer.customerName} />
         </this.InputArea>
         <this.InputArea>
           <label>구 분</label>

@@ -4,7 +4,18 @@ import styles from "./cust_list.module.css";
 
 class CustList extends Component {
   render() {
-    return <article className={styles.items}></article>;
+    const { customers, clickItem } = this.props;
+    return (
+      <article className={styles.items}>
+        {customers.map((customer) => (
+          <CustItem
+            key={customer.id}
+            customer={customer}
+            clickItem={clickItem}
+          />
+        ))}
+      </article>
+    );
   }
 }
 
